@@ -9,8 +9,9 @@ import promiseLoaderFactory from "./scenarios/promise.js";
 import makeLocalStyleFactory from "./scenarios/localStyle.js";
 import syncEventFactory from "./scenarios/syncEvent.js";
 import forEachPersistFactory from "./scenarios/forEachPersist.js";
+import datasetFactory from "./scenarios/dataset.js";
 
-defaultTracker.setOptions({ 
+defaultTracker.setOptions({
     autoTransactionalize: false, // need explicit tranaction control for tests
 });
 
@@ -22,7 +23,7 @@ const model = track({
     scenariosComplete: 0,
     failures: [] as { name: string, messages: string[] }[],
     scenarioFactories: [
-        ifElseFactory, 
+        ifElseFactory,
         transactionFactory,
         forEachFactory,
         swapperFactory,
@@ -30,6 +31,7 @@ const model = track({
         makeLocalStyleFactory,
         syncEventFactory,
         forEachPersistFactory,
+        datasetFactory,
     ],
 });
 
@@ -78,7 +80,7 @@ const app = <>
     <h1>µ Integrated Tests</h1>
     <button onclick={ runAll }>Run All</button>
     <button onclick={ runActive } disabled={ !model.activeScenario }>Run Active</button>
-    { ForEach(model.scenarioFactories, factory => 
+    { ForEach(model.scenarioFactories, factory =>
         <a href="#" onclick={ () => model.activeScenario = (model.activeFactory = factory).create() } style={{ fontWeight: model.activeFactory === factory ? "bold" : "" }}>
             { factory.name }
         </a>
@@ -107,4 +109,3 @@ const app = <>
 </>;
 
 document.body.append(app);
-
