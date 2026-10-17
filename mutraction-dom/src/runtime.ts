@@ -128,7 +128,11 @@ export function element<E extends keyof HTMLElementTagNameMap>(
 
             default: {
                 function updateAttribute(dl: DependencyList) { 
-                    (el as any)[name] = getter();
+                    if (name.startsWith('data-')) {
+                        el.dataset[name.slice(5)] = getter();
+                    } else {
+                        (el as any)[name] = getter();
+                    }
                     if (isDebugMode) addNodeDependency(el, dl);
                 }
                 const sub = effect(updateAttribute, suppress);
