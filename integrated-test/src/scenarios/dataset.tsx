@@ -4,8 +4,8 @@ import type { TestScenario, TestScenarioFactory } from "../types.js";
 function create(): TestScenario {
     const root = neverTrack(
         <div>
-            <div id="t0" {...{'data-char': "A", 'data-type': 'alpha'}}>A</div>
-            <div id="t1" {...{'data-char': "2", 'data-type': 'numeric'}}>2</div>
+            <div id="t0" data-char="A" data-type="alpha">A</div>
+            <div id="t1" data-char="2" data-type="numeric">2</div>
         </div> as HTMLDivElement);
 
     const steps = [
